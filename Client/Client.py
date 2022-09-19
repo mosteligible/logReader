@@ -1,5 +1,5 @@
 from Constants import CLIENT_DB_TABLE_NAME, CLIENT_LOG_LOCATION
-from .clientUtils import isPlanValid
+from clientUtils import isPlanValid
 from Config import CLIENTDB
 from Log import create_logger
 
@@ -43,11 +43,4 @@ class Client:
         """
         Deletes client from DB
         """
-        return True
-
-    def UpdatePlan(self, newPlan: str) -> bool:
-        """
-        Updates the plan for existing client
-        """
-
-        return True
+        return CLIENTDB.DeleteClient(self.id)
