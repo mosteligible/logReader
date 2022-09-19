@@ -16,6 +16,6 @@ async def status():
 @app.post("/message")
 async def add_client(logMessage: LogMessage):
     return {
-            "status": 200,
-            "message": f"Log added successfully.",
-        }
+        "status": 200,
+        "message": f"Log added successfully.",
+    }

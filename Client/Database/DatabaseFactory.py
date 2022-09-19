@@ -22,9 +22,7 @@ class Database:
         columnNames = ", ".join([f"`{colName}`" for colName in dbPayload.keys()])
         valuesForColumn = ", ".join(
             [
-                "'{}'".format(val.replace("'", "''"))
-                if type(val) == str
-                else f"'{val}'"
+                "'{}'".format(val.replace("'", "''")) if type(val) == str else f"'{val}'"
                 for val in dbPayload.values()
             ]
         )

@@ -6,7 +6,7 @@ from .DatabaseFactory import Database
 class ClientDatabase(Database):
     def __init__(self, username: str, password: str, host: str, database: str):
         super().__init__(username, password, host, database)
-    
+
     def AddEntry(self, dbPayload: dict, tableName: str = CLIENT_DB_TABLE_NAME) -> bool:
         return super().AddEntry(dbPayload, tableName)
 
@@ -23,7 +23,7 @@ class ClientDatabase(Database):
         row = self._cursor.fetchall()  # read first row of the fetch from DB
         if len(row) != 1:
             return False
-        
+
         return tuple(row[0])
 
     def DeleteClient(self, clientId: str) -> bool:
