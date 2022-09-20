@@ -1,4 +1,4 @@
-from Models import ClientModel
+from Models import ClientModel, ClientValidateModel
 from fastapi import FastAPI
 from typing import Union
 
@@ -15,23 +15,23 @@ async def status():
 
 
 @app.get("/get")
-async def read_item(client_id: Union[str, None] = None):
+async def readClient(client_id: Union[str, None] = None):
     if client_id is None:
-        return "Client ID must be provided. Client id was not supplied."
+        return {"status": 403, "message": "Client ID must be provided. Client id was not supplied."}
 
     client_details = CLIENTDB.RetreiveClient(client_id)
 
     if client_details is False:
         return "Error getting client details from DB"
     return {
+        "status": "200",
         "id": client_id,
         "name": client_details[1],
-        "plan": client_details[2],
     }
 
 
 @app.post("/add")
-def add_client(client: ClientModel):
+def addClient(client: ClientModel):
     if CLIENTDB.AddEntry(client.dict()):
         return {
             "status": 200,
@@ -39,6 +39,21 @@ def add_client(client: ClientModel):
         }
     else:
         return {"status": 500, "message": "Error adding provided client to Database"}
+
+
+@app.post("/validate")
+async def validateClient(client: ClientValidateModel):
+    client_details = CLIENTDB.RetreiveClient(client.id)
+
+    if client_details is False:
+        return {"status": 403}
+    return {
+        "status": "200",
+        "id": client.id,
+        "name": client_details[1],
+        "plan": client_details[2],
+        "token": client_details[3],
+    }
 
 
 @app.delete("/delete")
