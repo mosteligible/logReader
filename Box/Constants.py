@@ -1,12 +1,5 @@
-import os
-from dotenv import load_dotenv
 from pathlib import Path
 
-
-load_dotenv()
-
-
-TIMEOUT_DURATION = os.getenv("TIMEOUT_DURATION", 3600)
 
 ################################
 # LOG DIRECTORY SETUP

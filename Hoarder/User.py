@@ -3,9 +3,10 @@ import requests
 
 import Constants
 from Exceptions import UserValidationError
+from Hoarder.utils import collectResponse
 
 
-class Client:
+class User:
     def __init__(self, id: str, token: str) -> None:
         self.id = id
         self._token = token
@@ -21,9 +22,11 @@ class Client:
     def ValidateClient(self, id: str, token: str) -> bool:
         validationURL = f"{Constants.CLIENT_ENDPOINT}/validate"
         payload = {"id": id, "token": token}
-        response = requests.post(validationURL, json=payload)
+        response = collectResponse(url=validationURL, payload=payload)
+        if response is None:
+            return False
         response = response.json()
-        if response["status"] > 399 or response["token"] == token:
+        if response["status"] > 399 or response["token"] != token:
             return False
         return True
 

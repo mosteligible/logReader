@@ -4,6 +4,7 @@ from typing import Union
 
 from Config import CLIENTDB
 from Log import APP_LOGGER
+from utils import generateToken
 
 
 app = FastAPI()
@@ -46,7 +47,7 @@ async def validateClient(client: ClientValidateModel):
     client_details = CLIENTDB.RetreiveClient(client.id)
 
     if client_details is False:
-        return {"status": 403}
+        return {"status": 403, "token": generateToken()}
     return {
         "status": "200",
         "id": client.id,
