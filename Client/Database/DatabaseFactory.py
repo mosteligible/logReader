@@ -18,6 +18,7 @@ class Database:
         )
 
     def AddEntry(self, dbPayload: dict, tableName: str) -> bool:
+        self.logger.info(f"payload: {dbPayload}")
         insertQuery = f"INSERT INTO {tableName}"
         columnNames = ", ".join([f"`{colName}`" for colName in dbPayload.keys()])
         valuesForColumn = ", ".join(
