@@ -8,10 +8,12 @@ from Exceptions import EnvironmentVariableError
 
 load_dotenv()
 
+
 def isEnvValid(var: str, varName: str, default: str) -> bool:
     if var == default:
         raise EnvironmentVariableError(f"{varName} is not set")
     return True
+
 
 CLIENTDB = ClientDatabase(
     username=Constants.CLIENT_DB_USERNAME,

@@ -8,7 +8,6 @@ from utils import generateToken, updateBoxReceiverQueue, updateHoarderClientel
 from Models import ClientModel, ClientValidateModel
 
 
-
 app = FastAPI()
 
 
@@ -50,15 +49,15 @@ def addClient(client: ClientModel, request: Request):
     if token is not None and CLIENTDB.AddEntry(dbPayload=payload):
         threads = [
             Thread(daemon=True, target=updateHoarderClientel),
-            Thread(daemon=True, target=updateBoxReceiverQueue)
-            ]
+            Thread(daemon=True, target=updateBoxReceiverQueue),
+        ]
         for th in threads:
             th.run()
         return {
             "status": 200,
             "message": f"Successfully added {client.id} to Database",
         }
-        
+
     else:
         return {"status": 500, "message": "Error adding provided client to Database"}
 
