@@ -29,12 +29,16 @@ async def updateClientel(clientData: ClientInformation):
     return {"status": 200}
 
 
+# TODO: Add endpoint or process to get all clients list on startup
+
+
 @app.post("/message")
 async def addClient(logMessage: LogMessage, request: Request):
     logText = logMessage.logString
     clientId = logMessage.clientId
 
     # Validate connection and send message to queue to be saved
+    print(f"{clientId}: {logText}")
 
     return {
         "status": 200,
