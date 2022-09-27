@@ -1,9 +1,8 @@
 from time import time
-import requests
-
 import Constants
 from Exceptions import UserValidationError
-from Hoarder.utils import collectResponse
+from Log import create_logger
+from utils import collectResponse
 
 
 class User:
@@ -32,3 +31,18 @@ class User:
 
     def __repr__(self) -> str:
         return self.id
+
+
+# To keep track of clients and log their addition and removal
+class Clientels(dict):
+    def __init__(self, *args):
+        self.logger = create_logger(
+            log_location=Constants.CLIENTEL_LOG,
+            logger_name="CLIENTEL",
+            file_name="clientel.log",
+        )
+        dict.__init__(self, args)
+
+    def __setitem__(self, key, val):
+        self.logger.info(f"Added client:: {key}: {val}")
+        dict.__setitem__(self, key, val)

@@ -20,9 +20,12 @@ def isEnvValid(var: str, varName: str, default: str) -> bool:
 CLIENT_ENDPOINT = os.getenv("CLIENT_ENDPOINT", "")
 isEnvValid(CLIENT_ENDPOINT, "CLIENT_ENDPOINT", "")
 
+CLIENT_AUTH_TOKEN = os.getenv("CLIENT_AUTH_TOKEN", "")
+isEnvValid(CLIENT_AUTH_TOKEN, "CLIENT_AUTH_TOKEN", "")
+
 Clientel = {}
 
-Sender = {}
+Senders = {}
 
 ################################
 # RABBITMQ CONNECTION PARAMS
