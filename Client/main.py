@@ -38,14 +38,26 @@ async def readClient(client_id: Union[str, None] = None):
     }
 
 
+@app.get("/clients/all")
+async def allClients():
+    clientel = CLIENTDB.RetreiveAllClients()
+    if clientel is False:
+        return {
+            "status": 403,
+            "message": "Error retreiving clientel from database."
+        }
+    return {
+        "status": 200,
+        "clientel": clientel
+    }
+
+
 @app.post("/add")
 def addClient(client: ClientModel, request: Request):
     clientIp = request.client.host
-    print("client ip:", clientIp)
     token = request.headers.get("token", None)
     payload = client.dict()
     payload.update({"ip": clientIp})
-    print("Payload:", payload)
     if token is not None and CLIENTDB.AddEntry(dbPayload=payload):
         threads = [
             Thread(daemon=True, target=updateHoarderClientel),

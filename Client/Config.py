@@ -31,3 +31,7 @@ isEnvValid(BOX_ENDPOINT, "BOX_ENDPOINT", "")
 
 HOARDER_ENDPOINT = os.getenv("HOARDER_ENDPOINT", "")
 isEnvValid(HOARDER_ENDPOINT, "HOARDER_ENDPOINT", "")
+
+# Token to authenticate to add clients to Database
+CLIENT_ADD_TOKEN = os.getenv("CLIENT_ADD_TOKEN", "")
+isEnvValid(CLIENT_ADD_TOKEN, "CLIENT_ADD_TOKEN", "")

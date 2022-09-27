@@ -28,6 +28,7 @@ class Database:
             ]
         )
         query = f"{insertQuery} ({columnNames}) VALUES ({valuesForColumn})"
+        self.logger.info(f"Query: {query}")
         try:
             self._cursor.execute(query)
             self._connection.commit()

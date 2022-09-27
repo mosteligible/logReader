@@ -13,7 +13,9 @@ CLIENT_DB_NAME=        # DB Name that is used be Client Tracker App
 CLIENT_DB_HOST=        # Host ip, where DB is hosted
 CLIENT_DB_TABLE_NAME=  # Table name where client information is held
 BOX_ENDPOINT=          # Endpoint associated with Box App
+BOX_AUTH_TOKEN=        # Token for Box App to authenticate against client for information retreival
 HOARDER_ENDPOINT=      # Endpoint of Hoarder App
+HOARDER_AUTH_TOKEN=    # Token for Hoarder App to authenticate against client for information retreival
 ```
 
 To run client from a docker image save above environment variables in a file called `client.env` then run following to start docker image:

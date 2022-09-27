@@ -1,4 +1,5 @@
-from typing import Dict, Tuple
+import traceback
+from typing import Dict, List, Tuple
 from Constants import CLIENT_DB_TABLE_NAME
 from .DatabaseFactory import Database
 
@@ -18,7 +19,7 @@ class ClientDatabase(Database):
                 f"Successfully retreived client with id {clientId} from {CLIENT_DB_TABLE_NAME}"
             )
         except Exception as e:
-            self.logger.error(f"Error retreiving client with id: {clientId}")
+            self.logger.error(f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}")
             return False
         row = self._cursor.fetchall()  # read first row of the fetch from DB
         if len(row) != 1:
@@ -34,6 +35,19 @@ class ClientDatabase(Database):
                 f"Successfully deleted client with id {clientId} from {CLIENT_DB_TABLE_NAME}"
             )
         except Exception as e:
-            self.logger.error(f"Error retreiving client with id: {clientId}")
+            self.logger.error(f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}")
             return False
         return True
+
+    def RetreiveAllClients(self) -> List[str] | bool:
+        selectAllQuery = f"select * from {CLIENT_DB_TABLE_NAME}"
+        try:
+            self._cursor.execute(selectAllQuery)
+            self.logger.info("Successfully retreived all clients from DB")
+        except Exception as e:
+            self.logger.error(f"Error retreiving all data from DB\n{traceback.format_exc()}")
+            return False
+        clientel = self._cursor.fetchall()
+        for index in range(len(clientel)):
+            clientel = tuple(clientel)
+        return clientel
