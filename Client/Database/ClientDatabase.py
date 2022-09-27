@@ -19,7 +19,9 @@ class ClientDatabase(Database):
                 f"Successfully retreived client with id {clientId} from {CLIENT_DB_TABLE_NAME}"
             )
         except Exception as e:
-            self.logger.error(f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}")
+            self.logger.error(
+                f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}"
+            )
             return False
         row = self._cursor.fetchall()  # read first row of the fetch from DB
         if len(row) != 1:
@@ -35,7 +37,9 @@ class ClientDatabase(Database):
                 f"Successfully deleted client with id {clientId} from {CLIENT_DB_TABLE_NAME}"
             )
         except Exception as e:
-            self.logger.error(f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}")
+            self.logger.error(
+                f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}"
+            )
             return False
         return True
 
@@ -45,7 +49,9 @@ class ClientDatabase(Database):
             self._cursor.execute(selectAllQuery)
             self.logger.info("Successfully retreived all clients from DB")
         except Exception as e:
-            self.logger.error(f"Error retreiving all data from DB\n{traceback.format_exc()}")
+            self.logger.error(
+                f"Error retreiving all data from DB\n{traceback.format_exc()}"
+            )
             return False
         clientel = self._cursor.fetchall()
         for index in range(len(clientel)):

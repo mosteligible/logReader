@@ -42,14 +42,8 @@ async def readClient(client_id: Union[str, None] = None):
 async def allClients():
     clientel = CLIENTDB.RetreiveAllClients()
     if clientel is False:
-        return {
-            "status": 403,
-            "message": "Error retreiving clientel from database."
-        }
-    return {
-        "status": 200,
-        "clientel": clientel
-    }
+        return {"status": 403, "message": "Error retreiving clientel from database."}
+    return {"status": 200, "clientel": clientel}
 
 
 @app.post("/add")
