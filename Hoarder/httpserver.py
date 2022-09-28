@@ -1,6 +1,7 @@
 from Exceptions import UserValidationError
 from fastapi import FastAPI, Request
 import threading
+from Log import APP_LOGGER
 
 from Models import LogMessage, ClientInformation
 from User import User
@@ -40,6 +41,7 @@ async def addClient(logMessage: LogMessage, request: Request):
     clientId = logMessage.clientId
     token = logMessage.authToken
     client = Clientel.get(clientId, None)
+    APP_LOGGER.info(f"client Id: {clientId} - client in Clientel: {client}")
     if client is None:
         return StatusCodes.notAllowed
 

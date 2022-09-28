@@ -1,15 +1,17 @@
 from time import time
 import Constants
+import Config
 from Exceptions import UserValidationError
 from Log import create_logger
 from utils import collectResponse
 
 
 class User:
-    def __init__(self, id: str, token: str) -> None:
+    def __init__(self, id: str, token: str, validate=True) -> None:
         self.id = id
         self._token = token
-        if not self.ValidateClient(id, token):
+        self.logger = create_logger(log_location=Constants.USER_LOG_DIR, logger_name=id, file_name=f"{id}.log")
+        if validate and not self.ValidateClient(id, token):
             raise UserValidationError("Invalid User")
         self._timestamp = time()
 
@@ -19,14 +21,19 @@ class User:
         return True
 
     def ValidateClient(self, id: str, token: str) -> bool:
-        validationURL = f"{Constants.CLIENT_ENDPOINT}/validate"
+        validationURL = f"{Config.CLIENT_ENDPOINT}/validate"
         payload = {"id": id, "token": token}
         response = collectResponse(url=validationURL, payload=payload)
         if response is None:
+            self.logger.info(f"Client Validation for - ID: {id} Failed - token: {token}")
             return False
         response = response.json()
-        if response["status"] > 399 or response["token"] != token:
+        self.logger.info(f"response from Client Tracker: {response}")
+        statusCode = int(response["status"])
+        if statusCode > 399 or response["token"] != token:
+            self.logger.info(f"Client Validation for - ID: {id} Failed - token: {token}")
             return False
+        self.logger.info(f"Client Validation for - ID: {id} Successful")
         return True
 
     def __repr__(self) -> str:

@@ -1,7 +1,6 @@
-from email import header
 from typing import Dict
 import requests
-from Hoarder.Config import CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT
+from Config import CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT
 from Log import APP_LOGGER
 
 
@@ -22,6 +21,7 @@ def collectResponse(url: str, payload: Dict) -> requests.models.Response:
 
 def retreiveAllClients():
     headers = {"token": CLIENT_AUTH_TOKEN}
-    response = requests.get(url=CLIENT_ENDPOINT, headers=headers)
+    url = f"{CLIENT_ENDPOINT}/clients/all"
+    response = requests.get(url=url, headers=headers)
     clientel = response.json()["clientel"]
     return clientel

@@ -9,7 +9,7 @@ Hoarder expects clients to send their authentication credentials in request head
 
 ### `/status`
 
-A GET endpoint that will allow registered devices to check if application is up. Registered devices will get success with status code 200 where as un-registered ones will get 403. 
+A GET endpoint that will allow registered devices to check if application is up. Registered devices will get success with status code 200 where as un-registered ones will get 403.
 
 It expects request headers to contain `id` of client.
 
