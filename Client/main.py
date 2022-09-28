@@ -79,8 +79,8 @@ def validateClient(client: ClientValidateModel):
         "status": "200",
         "id": client.id,
         "name": client_details[1],
-        "plan": client_details[2],
-        "token": client_details[3],
+        "plan": client_details[3],
+        "token": client_details[4],
     }
 
 
