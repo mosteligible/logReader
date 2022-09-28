@@ -5,14 +5,31 @@ Accepts log messages from clients, parses them and saves them to storage for ret
 Hoarder expects clients to send their authentication credentials in request headers. These credentials are provided to clients and they should be appended to request headers.
 
 
-
-## Endpoints
+## Endpoints available for Hoarder
 
 ### `/status`
-A GET endpoint to check if the application is running. Status of 200 means that application is up.
+
+A GET endpoint that will allow registered devices to check if application is up. Registered devices will get success with status code 200 where as un-registered ones will get 403. 
+
+It expects request headers to contain `id` of client.
+
+TODO: Ideal scenario would be timeout for requests from unregistered devices.
+
 
 ### `/clientel`
-A POST endpoint that receives information of new clientel added to DB and adds the client to memory.
+
+A POST endpoint that will allow adding the client information to Hoarder app. This allows Hoarder to keep track of all the clients it can expect log messages from.
+
 
 ### `/message`
-A POST endpoint that receives log messages from clients and saves them in a storage for retreival at later time.
+
+A POST endpoint where clients can send their log messages and save to their respective places in server for later retreival.
+
+This requires a post message with following payload as post-body:
+```
+{
+    "logString": "a string from client",
+    "clientId": "id associated with client",
+    "authToken": "token used by client to authenticate against Hoarder"
+}
+```

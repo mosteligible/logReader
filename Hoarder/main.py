@@ -38,7 +38,7 @@ async def updateClientel(clientData: ClientInformation):
 async def addClient(logMessage: LogMessage, request: Request):
     logText = logMessage.logString
     clientId = logMessage.clientId
-    token = request.headers.get("token")
+    token = logMessage.authToken
     client = Clientel.get(clientId, None)
     if client is None:
         return StatusCodes.notAllowed
