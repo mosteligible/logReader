@@ -2,10 +2,11 @@ from fastapi import FastAPI, Request
 from typing import Union
 from threading import Thread
 
-from Config import CLIENTDB
+from Config import BOX_AUTH_TOKEN, CLIENTDB, HOARDER_AUTH_TOKEN
 from Log import APP_LOGGER
 from utils import generateToken, updateBoxReceiverQueue, updateHoarderClientel
 from Models import ClientModel, ClientValidateModel
+import StatusCodes
 
 
 app = FastAPI()
@@ -19,18 +20,12 @@ async def status():
 @app.get("/get")
 async def readClient(client_id: Union[str, None] = None):
     if client_id is None:
-        return {
-            "status": 403,
-            "message": "Client ID must be provided. Client id was not supplied.",
-        }
+        return StatusCodes.notAllowed
 
     client_details = CLIENTDB.RetreiveClient(client_id)
 
     if client_details is False:
-        return {
-            "status": 404,
-            "message": "Client id does not exist",
-        }
+        return StatusCodes.doesNotExist
     return {
         "status": "200",
         "id": client_id,
@@ -39,10 +34,15 @@ async def readClient(client_id: Union[str, None] = None):
 
 
 @app.get("/clients/all")
-async def allClients():
+async def allClients(request: Request):
+    appInstance = request.headers.get("application_instance", None)
+    token = request.headers.get("token", None)
+    APP_LOGGER.info(f"Application {appInstance} requesting all client information")
+    if token not in [HOARDER_AUTH_TOKEN, BOX_AUTH_TOKEN]:
+        return StatusCodes.notAllowed
     clientel = CLIENTDB.RetreiveAllClients()
     if clientel is False:
-        return {"status": 403, "message": "Error retreiving clientel from database."}
+        return StatusCodes.error
     return {"status": 200, "clientel": clientel}
 
 
