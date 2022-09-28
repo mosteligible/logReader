@@ -1,4 +1,5 @@
 import os
+from threading import Lock
 from dotenv import load_dotenv
 
 from Exceptions import EnvironmentVariableError
@@ -13,7 +14,7 @@ def isEnvValid(var: str, varName: str, default: str) -> bool:
     return True
 
 
-Receivers = {}
+LogReceivers = {}
 
 ################################
 # RABBITMQ CONNECTION PARAMS
@@ -32,3 +33,9 @@ isEnvValid(RABBITMQ_PASSWORD, "RABBITMQ_PASSWORD", "")
 
 RABBITMQ_VHOST = os.getenv("RABBITMQ_VHOST", "")
 isEnvValid(RABBITMQ_VHOST, "RABBITMQ_VHOST", "")
+
+CLIENT_AUTH_TOKEN = os.getenv("CLIENT_AUTH_TOKEN", "")
+isEnvValid(CLIENT_AUTH_TOKEN, "CLIENT_AUTH_TOKEN", "")
+
+CLIENT_ENDPOINT = os.getenv("CLIENT_ENDPOINT", "")
+isEnvValid(CLIENT_ENDPOINT, "CLIENT_ENDPOINT", "")
