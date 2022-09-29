@@ -1,0 +1,26 @@
+version: "3.3"  # optional since v1.27.0
+services:
+  clienttracker:
+    build: Client/
+    ports:
+      - "8000:8000"
+    volumes:
+      - /srv/clientlogs:/app/LOGS
+
+  hoarder:
+    build: Hoarder/
+    ports:
+      - "3000:3000"
+    volumes:
+      - /srv/hoarderlogs:/app/LOGS
+    depends_on:
+      - clienttracker
+
+  box:
+    build: Box/
+    ports:
+      - "5000:5000"
+    volumes:
+      - /srv/boxlogs:/app/LOGS
+    depends_on:
+      - clienttracker
