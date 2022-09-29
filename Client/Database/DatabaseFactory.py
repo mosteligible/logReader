@@ -40,7 +40,7 @@ class Database:
             return False
         return True
 
-    def Reconnect(self, database: str):
+    def Reconnect(self, database: str) -> None:
         if self._connection:
             self._cursor.close()
             self._connection.close()

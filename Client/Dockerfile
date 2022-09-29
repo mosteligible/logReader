@@ -10,4 +10,6 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt --no-cache-dir
 
-CMD uvicorn main:app --host 0.0.0.0 --port 80
+RUN echo $(python3 --version)
+
+CMD uvicorn main:app --host 0.0.0.0 --port 8000

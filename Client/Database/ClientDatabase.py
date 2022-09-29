@@ -1,3 +1,4 @@
+from typing import Union
 import traceback
 from typing import Dict, List, Tuple
 from Constants import CLIENT_DB_TABLE_NAME
@@ -43,7 +44,7 @@ class ClientDatabase(Database):
             return False
         return True
 
-    def RetreiveAllClients(self) -> List[str] | bool:
+    def RetreiveAllClients(self) -> Union[List[str], bool]:
         selectAllQuery = f"select * from {CLIENT_DB_TABLE_NAME}"
         try:
             self._cursor.execute(selectAllQuery)
