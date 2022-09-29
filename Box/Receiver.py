@@ -24,7 +24,6 @@ class Receiver(Thread):
         self.logger = create_logger(
             log_location=RECEIVER_LOG_DIR, logger_name=clientId, file_name=f"{clientId}.log"
         )
-        self.logger.info(f"{clientId} Receiver Initialized!")
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(
                 host=self.config.host,
@@ -39,6 +38,7 @@ class Receiver(Thread):
             queue=self.clientId,
             on_message_callback=self.callback,
         )
+        self.logger.info(f"{clientId} Receiver Initialized!")
 
     def run(self) -> str:
         self.channel.start_consuming()
@@ -48,4 +48,3 @@ class Receiver(Thread):
         body = body.decode("utf8")
         self.logger.debug(f"{self.clientId}: {body}")
         ch.basic_ack(delivery_tag=method.delivery_tag)
-        time.sleep(0.15)
