@@ -10,7 +10,9 @@ class User:
     def __init__(self, id: str, token: str, validate=True) -> None:
         self.id = id
         self._token = token
-        self.logger = create_logger(log_location=Constants.USER_LOG_DIR, logger_name=id, file_name=f"{id}.log")
+        self.logger = create_logger(
+            log_location=Constants.USER_LOG_DIR, logger_name=id, file_name=f"{id}.log"
+        )
         if validate and not self.ValidateClient(id, token):
             raise UserValidationError("Invalid User")
         self._timestamp = time()

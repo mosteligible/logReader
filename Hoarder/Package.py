@@ -1,6 +1,8 @@
 import pika
 
 import Config
+from Constants import SENDER_LOG_DIR
+from Log import create_logger
 
 
 class RabbitmqConfig:
@@ -14,9 +16,10 @@ class RabbitmqConfig:
 
 
 class Sender:
-    def __init__(self, config: RabbitmqConfig, clientId: str) -> None:
-        self.config = config
+    def __init__(self, clientId: str) -> None:
+        self.config = RabbitmqConfig()
         self.clientId = clientId
+        self.logger = create_logger(log_location=SENDER_LOG_DIR, logger_name=clientId, file_name=f"{clientId}.log")
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(
                 host=self.config.host,
@@ -27,6 +30,8 @@ class Sender:
         )
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue=clientId)
+        self.logger.info(f"{clientId} Sender initiated!!")
 
     def send(self, message: str) -> None:
         self.channel.basic_publish(exchange="", routing_key=self.clientId, body=message)
+        self.logger.info(f"Sent message {message}")

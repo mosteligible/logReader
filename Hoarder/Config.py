@@ -13,6 +13,8 @@ def isEnvValid(var: str, varName: str, default: str) -> bool:
     return True
 
 
+APP_NAME = os.getenv("APP_NAME", "hoarder")
+
 ################################
 # CLIENT AUTHENTICATION
 ################################

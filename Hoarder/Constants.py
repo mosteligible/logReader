@@ -21,3 +21,6 @@ CLIENTEL_LOG.mkdir(exist_ok=True, parents=True)
 
 USER_LOG_DIR = LOG_DIR / "USER"
 USER_LOG_DIR.mkdir(exist_ok=True, parents=True)
+
+SENDER_LOG_DIR = LOG_DIR / "SENDER"
+SENDER_LOG_DIR.mkdir(exist_ok=True, parents=True)
