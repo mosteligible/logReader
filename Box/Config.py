@@ -16,6 +16,8 @@ def isEnvValid(var: str, varName: str, default: str) -> bool:
 
 LogReceivers = {}
 
+APP_NAME = os.getenv("APP_NAME", "box")
+
 ################################
 # RABBITMQ CONNECTION PARAMS
 ################################

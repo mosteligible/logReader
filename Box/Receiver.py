@@ -22,10 +22,9 @@ class Receiver(Thread):
         self.config = RabbitmqConfig()
         self.clientId = clientId
         self.logger = create_logger(
-            log_location=RECEIVER_LOG_DIR,
-            logger_name=clientId,
-            file_name=f"{clientId}.log"
-            )
+            log_location=RECEIVER_LOG_DIR, logger_name=clientId, file_name=f"{clientId}.log"
+        )
+        self.logger.info(f"{clientId} Receiver Initialized!")
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(
                 host=self.config.host,
@@ -46,7 +45,7 @@ class Receiver(Thread):
 
     @staticmethod
     def callback(self, ch, method, properties, body: str):
-        body = body.decode('utf8')
-        print(f"{self.clientId}: {body}")
+        body = body.decode("utf8")
+        self.logger.debug(f"{self.clientId}: {body}")
         ch.basic_ack(delivery_tag=method.delivery_tag)
         time.sleep(0.15)

@@ -1,4 +1,5 @@
 from threading import Thread
+import time
 import uvicorn
 from utils import retreiveAllClients
 
@@ -8,6 +9,7 @@ from Receiver import Receiver
 
 
 def initMessaging() -> None:
+    time.sleep(5)
     clientels = retreiveAllClients()
     for client in clientels:
         logReceiver = Receiver(client[0])

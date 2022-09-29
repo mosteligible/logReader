@@ -1,12 +1,14 @@
 from typing import Dict
 import requests
-from Config import CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT
+import time
+from Config import CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT, APP_NAME
 from Log import APP_LOGGER
 
 
 def collectResponse(url: str, payload: Dict) -> requests.models.Response:
     retries = 0
     response = None
+    APP_LOGGER.info(f"Sending POST request to: {url} with payload: {payload}")
     while retries < 3:
         try:
             response = requests.post(url, json=payload)
@@ -15,12 +17,24 @@ def collectResponse(url: str, payload: Dict) -> requests.models.Response:
             break
         except Exception as e:
             APP_LOGGER.error(f"{e} on {retries+1} tries requesting url:: {url}")
+            time.sleep(10)
             retries += 1
     return response
 
 
 def retreiveAllClients():
-    headers = {"token": CLIENT_AUTH_TOKEN}
-    response = requests.get(url=CLIENT_ENDPOINT, headers=headers)
-    clientel = response.json()["clientel"]
+    headers = {"application_instance": APP_NAME, "token": CLIENT_AUTH_TOKEN}
+    retries = 0
+    response = None
+    APP_LOGGER.info(f"Sending GET request to: {CLIENT_ENDPOINT}")
+    while retries < 3:
+        try:
+            response = requests.get(url=CLIENT_ENDPOINT, headers=headers)
+            clientel = response.json()["clientel"]
+            break
+        except Exception as e:
+            APP_LOGGER.error(f"{e} on {retries+1} tries requesting url: {CLIENT_ENDPOINT}")
+            print(f"{e} on {retries+1} tries requesting url: {CLIENT_ENDPOINT}")
+            time.sleep(10)
+            retries += 1
     return clientel
