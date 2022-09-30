@@ -36,7 +36,7 @@ async def updateClientel(clientData: ClientInformation):
 
 
 @app.post("/message")
-async def addClient(logMessage: LogMessage, request: Request):
+def addClient(logMessage: LogMessage, request: Request):
     logText = logMessage.logString
     clientId = logMessage.clientId
     token = logMessage.authToken
@@ -49,7 +49,7 @@ async def addClient(logMessage: LogMessage, request: Request):
         return StatusCodes.notAllowed
 
     sender = Senders.get(clientId)
-    senderThread = threading.Thread(daemon=True, target=sender.send, args=(logText))
+    senderThread = threading.Thread(daemon=True, target=sender.send, args=(logText,))
     senderThread.start()
 
     return StatusCodes.success

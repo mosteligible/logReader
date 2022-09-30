@@ -44,7 +44,6 @@ class Receiver(Thread):
     def run(self) -> str:
         self.channel.start_consuming()
 
-    @staticmethod
     def callback(self, ch, method, properties, body: str):
         body = body.decode("utf8")
         self.logger.debug(f"{self.clientId}: {body}")
