@@ -31,7 +31,7 @@ make docker-stop
 
 To run locally, either export the above variables in environment or save them in a `.env` file in the project directory then run:
 ```
-make local
+uvicorn main:app --reload
 ```
 
 ## Endpoints available for Client Tracker
@@ -46,6 +46,16 @@ This endpoint does not require any validation to use at the moment. No authentic
 A GET endpoint that takes client's id as a parameter and returns name of client associated with the id. If no match is found, it returns error.
 
 
+### `/client/all`
+A GET endpoint to retreive all clients information from database. Only `Hoarder App` and `Box App` are able to access information from this endpoint by providing their authentication tokens. Following information is expected in the headers:
+```
+{
+    "application_instance": "name of application requesting the endpoint",
+    "token": "token to authenticate against for given application"
+}
+```
+
+
 ### `/add`
 A POST endpoint that adds client to the Client Database. Post request contains client's id, name, plan and connection token provided to them.
 
@@ -55,11 +65,27 @@ To successfully add client to the database, request should contain header with a
 {"token": "some#string:value-to-authenticate@against"}
 ```
 
+Following client information is required as post body to add client to database. Note that the plan can only be one of `small`, `medium` or `large`.
+```
+{
+    "id": "client's ID",
+    "name": "client's name",
+    "plan": "plan associated woth client",
+    "token": "token provided to client for authentication"
+}
+```
+
 After successful addition to Database, Client App will update Hoarder and Box with updated client's information.
 
 
 ### `/validate`
-A POST endpoint to check if a given client exists in the Database.
+A POST endpoint to check if a given client exists in the Database. The post body required for this endpoint is following:
+```
+{
+    "id": "client's ID",
+    "token": "token provided to client for authentication"
+}
+```
 
 
 ### `/delete`

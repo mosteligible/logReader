@@ -28,7 +28,7 @@ class ClientDatabase(Database):
         if len(row) != 1:
             return False
 
-        return tuple(row[0])
+        return row[0]
 
     def DeleteClient(self, clientId: str) -> bool:
         deleteQuery = f"delete from `{CLIENT_DB_TABLE_NAME}` where id='{clientId}'"

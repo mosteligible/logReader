@@ -50,7 +50,7 @@ class Database:
             host=self._host,
             database=database,
         )
-        self._cursor = self._connection.cursor(named_tuple=True)
+        self._cursor = self._connection.cursor(dictionary=True)
 
     def IsConnected(self):
         return self._connection.is_connected()

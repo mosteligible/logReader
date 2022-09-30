@@ -29,7 +29,7 @@ async def readClient(client_id: Union[str, None] = None):
     return {
         "status": "200",
         "id": client_id,
-        "name": client_details[1],
+        "name": client_details["name"],
     }
 
 
@@ -58,7 +58,7 @@ def addClient(client: ClientModel, request: Request):
             Thread(daemon=True, target=updateBoxReceiverQueue),
         ]
         for th in threads:
-            th.run()
+            th.start()
         return {
             "status": 200,
             "message": f"Successfully added {client.id} to Database",
@@ -78,9 +78,9 @@ def validateClient(client: ClientValidateModel):
     return {
         "status": "200",
         "id": client.id,
-        "name": client_details[1],
-        "plan": client_details[3],
-        "token": client_details[4],
+        "name": client_details["name"],
+        "plan": client_details["plan"],
+        "token": client_details["token"],
     }
 
 
