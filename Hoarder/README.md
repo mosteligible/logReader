@@ -23,7 +23,7 @@ A POST endpoint that will allow adding the client information to Hoarder app. Th
 
 ### `/message`
 
-A POST endpoint where clients can send their log messages and save to their respective places in server for later retreival.
+A POST endpoint where clients can send their log messages and save to their respective places in server for later retreival. This endpoint is accessed by client to send their logs. Logs are routed to `Box App` by `Senders` in this application. Senders are publishers that publish messages to the box.
 
 This requires a post message with following payload as post-body:
 ```

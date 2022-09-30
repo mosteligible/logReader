@@ -1,7 +1,8 @@
 version: "3.3"  # optional since v1.27.0
 services:
   clienttracker:
-    build: Client/
+    build: 
+      context: ./Client
     ports:
       - "8000:8000"
     volumes:

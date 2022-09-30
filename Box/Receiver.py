@@ -39,6 +39,7 @@ class Receiver(Thread):
             on_message_callback=self.callback,
         )
         self.logger.info(f"{clientId} Receiver Initialized!")
+        Thread.__init__(self)
 
     def run(self) -> str:
         self.channel.start_consuming()

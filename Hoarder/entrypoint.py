@@ -14,9 +14,9 @@ def initMessaging() -> None:
     time.sleep(5)
     clientels = retreiveAllClients()
     for client in clientels:
-        user = User(id=client[0], token=client[4], validate=True)
-        Clientel[client[0]] = user
-        Senders[client[0]] = Sender(clientId=client[0])
+        user = User(id=client["id"], token=client["token"], validate=True)
+        Clientel[client["id"]] = user
+        Senders[client["id"]] = Sender(clientId=client["id"])
     return None
 
 

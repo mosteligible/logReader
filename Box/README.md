@@ -7,14 +7,6 @@ It receives messages to save from Hoarder via rabbitmq. Any update to client lis
 Clients list is validated at every session refresh time.
 
 
-## Endpoints for client updates
-
-### `/add_client`
-
-
-### `/update_client`
-
-
 ## Setting up the Box
 
 Following environment variables are required:
@@ -25,4 +17,22 @@ RABBITMQ_PORT=      # Port on which Rabbitmq is listening
 RABBITMQ_USER=      # Username to authenticate against rabbitmq host
 RABBITMQ_PASSWORD=  # Password to authenticate against rabbitmq host
 RABBITMQ_VHOST=     # vHost that will be used for message passing
+CLIENT_AUTH_TOKEN=  # Token/string used to authenticate against client for sending requests to it
+CLIENT_ENDPOINT=    # http endpoint associated with client app
+```
+
+
+## Endpoints for client updates
+
+### `/status`
+A GET endpoint to check if application is up.
+
+
+### `/clientel`
+A POST endpoint that is specifically made for `Client App` to send client information to Box. POST body should be in following format:
+```
+{
+    "clientId": "id-of-a-client",
+    "token": "token-of-client-to-auth-against"
+}
 ```
