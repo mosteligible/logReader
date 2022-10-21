@@ -1,3 +1,4 @@
+from threading import Lock
 import pika
 
 import Config
@@ -16,6 +17,8 @@ class RabbitmqConfig:
 
 
 class Sender:
+    lock = Lock()
+
     def __init__(self, clientId: str) -> None:
         self.config = RabbitmqConfig()
         self.clientId = clientId
@@ -33,5 +36,10 @@ class Sender:
         self.logger.info(f"{clientId} Sender initiated!!")
 
     def send(self, message: str) -> None:
-        self.channel.basic_publish(exchange="", routing_key=self.clientId, body=message)
+        with self.lock:
+            self.channel.basic_publish(
+                exchange="",
+                routing_key=self.clientId,
+                body=message
+                )
         self.logger.info(f"Sent message {message}")

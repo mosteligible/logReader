@@ -1,5 +1,4 @@
-from threading import Thread
-import time
+from threading import Thread, Lock
 import pika
 
 import Config
@@ -18,6 +17,8 @@ class RabbitmqConfig:
 
 
 class Receiver(Thread):
+    lock = Lock()
+
     def __init__(self, clientId: str) -> None:
         self.config = RabbitmqConfig()
         self.clientId = clientId
