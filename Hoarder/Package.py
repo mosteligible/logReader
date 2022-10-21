@@ -22,7 +22,9 @@ class Sender:
     def __init__(self, clientId: str) -> None:
         self.config = RabbitmqConfig()
         self.clientId = clientId
-        self.logger = create_logger(log_location=SENDER_LOG_DIR, logger_name=clientId, file_name=f"{clientId}.log")
+        self.logger = create_logger(
+            log_location=SENDER_LOG_DIR, logger_name=clientId, file_name=f"{clientId}.log"
+        )
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(
                 host=self.config.host,
@@ -37,9 +39,5 @@ class Sender:
 
     def send(self, message: str) -> None:
         with self.lock:
-            self.channel.basic_publish(
-                exchange="",
-                routing_key=self.clientId,
-                body=message
-                )
+            self.channel.basic_publish(exchange="", routing_key=self.clientId, body=message)
         self.logger.info(f"Sent message {message}")

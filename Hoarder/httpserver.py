@@ -46,11 +46,7 @@ def addClient(logMessage: LogMessage, request: Request):
         return StatusCodes.notAllowed
 
     sender = Senders.get(clientId)
-    senderThread = threading.Thread(
-        daemon=True,
-        target=sender.send,
-        args=(logText,)
-        )
+    senderThread = threading.Thread(daemon=True, target=sender.send, args=(logText,))
     senderThread.start()
 
     return StatusCodes.success
