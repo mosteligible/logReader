@@ -32,9 +32,6 @@ async def updateClientel(clientData: ClientInformation):
     return StatusCodes.success
 
 
-# TODO: Add endpoint or process to get all clients list on startup
-
-
 @app.post("/message")
 def addClient(logMessage: LogMessage, request: Request):
     logText = logMessage.logString
@@ -49,7 +46,11 @@ def addClient(logMessage: LogMessage, request: Request):
         return StatusCodes.notAllowed
 
     sender = Senders.get(clientId)
-    senderThread = threading.Thread(daemon=True, target=sender.send, args=(logText,))
+    senderThread = threading.Thread(
+        daemon=True,
+        target=sender.send,
+        args=(logText,)
+        )
     senderThread.start()
 
     return StatusCodes.success

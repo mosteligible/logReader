@@ -1,5 +1,4 @@
 from threading import active_count
-import time
 import uvicorn
 from utils import retreiveAllClients
 
