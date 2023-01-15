@@ -1,13 +1,12 @@
+import threading
+
+import StatusCodes
+from Config import Clientel, Senders
 from Exceptions import UserValidationError
 from fastapi import FastAPI, Request
-import threading
 from Log import APP_LOGGER
-
-from Models import LogMessage, ClientInformation
+from Models import ClientInformation, LogMessage
 from User import User
-from Config import Clientel, Senders
-import StatusCodes
-
 
 app = FastAPI()
 

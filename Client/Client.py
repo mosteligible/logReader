@@ -1,6 +1,6 @@
-from Constants import CLIENT_DB_TABLE_NAME, CLIENT_LOG_LOCATION
 from clientUtils import isPlanValid
 from Config import CLIENTDB
+from Constants import CLIENT_DB_TABLE_NAME, CLIENT_LOG_LOCATION
 from Log import create_logger
 
 
@@ -33,7 +33,9 @@ class Client:
         try:
             CLIENTDB.AddEntry(payload, tableName=CLIENT_DB_TABLE_NAME)
         except Exception as e:
-            self.logger.error(f"Could not add client {self.name} with id {self.id}")
+            self.logger.error(
+                f"Error- {e} - Could not add client {self.name} with id {self.id}"
+            )
             return False
 
         self.logger.info(f"Successfully added Client {self.name} with id {self.id}")

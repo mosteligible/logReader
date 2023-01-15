@@ -1,7 +1,8 @@
-from typing import Union
 import traceback
-from typing import Dict, List, Tuple
+from typing import List, Tuple, Union
+
 from Constants import CLIENT_DB_TABLE_NAME
+
 from .DatabaseFactory import Database
 
 
@@ -21,7 +22,7 @@ class ClientDatabase(Database):
             )
         except Exception as e:
             self.logger.error(
-                f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}"
+                f"{e} - Error retreiving client with id: {clientId}\n{traceback.format_exc()}"
             )
             return False
         row = self._cursor.fetchall()  # read first row of the fetch from DB
@@ -39,7 +40,7 @@ class ClientDatabase(Database):
             )
         except Exception as e:
             self.logger.error(
-                f"Error retreiving client with id: {clientId}\n{traceback.format_exc()}"
+                f"{e} - Error retreiving client with id: {clientId}\n{traceback.format_exc()}"
             )
             return False
         return True
@@ -51,7 +52,7 @@ class ClientDatabase(Database):
             self.logger.info("Successfully retreived all clients from DB")
         except Exception as e:
             self.logger.error(
-                f"Error retreiving all data from DB\n{traceback.format_exc()}"
+                f"{e} - Error retreiving all data from DB\n{traceback.format_exc()}"
             )
             return False
         clientel = self._cursor.fetchall()

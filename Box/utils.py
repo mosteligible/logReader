@@ -1,7 +1,8 @@
-from typing import Dict
-import requests
 import time
-from Config import CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT, APP_NAME
+from typing import Dict
+
+import requests
+from Config import APP_NAME, CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT
 from Log import APP_LOGGER
 
 

@@ -1,7 +1,6 @@
-from abc import ABCMeta
-import mysql.connector as ctx
 import traceback
 
+import mysql.connector as ctx
 from Constants import DB_LOG_LOCATION
 from Log import create_logger
 
@@ -32,10 +31,10 @@ class Database:
         try:
             self._cursor.execute(query)
             self._connection.commit()
-            self.logger.info(f"Insert query successful")
+            self.logger.info(f"Insert query successful: {insertQuery}")
         except Exception as e:
             self.logger.error(
-                f"Insert query for {dbPayload} execution failed with exception {e}\n{traceback.format_exc()}"
+                f"{e} - Insert query for {dbPayload} execution failed with exception {e}\n{traceback.format_exc()}"
             )
             return False
         return True

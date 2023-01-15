@@ -1,10 +1,9 @@
 import os
-from dotenv import load_dotenv
 
 import Constants
 from Database import ClientDatabase
+from dotenv import load_dotenv
 from Exceptions import EnvironmentVariableError
-
 
 load_dotenv()
 

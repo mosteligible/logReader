@@ -1,10 +1,8 @@
-from fastapi import FastAPI, Request
-
-from Config import LogReceivers
 import StatusCodes
+from Config import LogReceivers
+from fastapi import FastAPI, Request
 from Models import ClientInformation
 from User import User
-
 
 app = FastAPI()
 

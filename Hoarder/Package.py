@@ -1,7 +1,7 @@
 from threading import Lock
-import pika
 
 import Config
+import pika
 from Constants import SENDER_LOG_DIR
 from Log import create_logger
 

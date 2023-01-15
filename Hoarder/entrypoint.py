@@ -1,13 +1,12 @@
-from threading import Thread
 import time
-import uvicorn
-from utils import retreiveAllClients
+from threading import Thread
 
-from httpserver import app
+import uvicorn
 from Config import Clientel, Senders
+from httpserver import app
 from Package import Sender
 from User import User
-from Log import APP_LOGGER
+from utils import retreiveAllClients
 
 
 def initMessaging() -> None:

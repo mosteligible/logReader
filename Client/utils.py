@@ -1,5 +1,5 @@
-from random import random
 from hashlib import md5
+from random import random
 
 
 def generateToken():

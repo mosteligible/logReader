@@ -1,11 +1,11 @@
 from threading import active_count
-import uvicorn
-from utils import retreiveAllClients
 
+import uvicorn
+from Config import LogReceivers
 from httpserver import app
 from Log import APP_LOGGER
-from Config import LogReceivers
 from Receiver import Receiver
+from utils import retreiveAllClients
 
 
 def initMessaging() -> None:

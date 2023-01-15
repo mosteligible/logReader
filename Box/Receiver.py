@@ -1,7 +1,7 @@
-from threading import Thread, Lock
-import pika
+from threading import Lock, Thread
 
 import Config
+import pika
 from Constants import RECEIVER_LOG_DIR
 from Log import create_logger
 
