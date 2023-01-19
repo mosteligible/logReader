@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS clientData (
     PRIMARY KEY (ID)
 );
 CREATE USER 'clientDBuname'@'%' IDENTIFIED BY 'ClientPW';
-GRANT ALL ON clientDB TO 'clientDBuname'@'%';
+GRANT ALL ON clientDB.* TO 'clientDBuname'@'%';
