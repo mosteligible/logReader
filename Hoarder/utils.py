@@ -27,6 +27,7 @@ def retreiveAllClients():
     headers = {"application_instance": APP_NAME, "token": CLIENT_AUTH_TOKEN}
     url = f"{CLIENT_ENDPOINT}/clients/all"
     retries = 0
+    clientel = []
     APP_LOGGER.info(f"Sending GET request to: {url}")
     while retries < 3:
         try:
