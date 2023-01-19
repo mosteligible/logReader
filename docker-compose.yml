@@ -1,5 +1,17 @@
 version: "3.3"
 services:
+  mysql:
+    image: "mysql-db:1.0.0"
+    ports:
+      - "6603:3306"
+    env_file:
+      - db.env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+
   clienttracker:
     build:
       context: ./Client
@@ -7,6 +19,11 @@ services:
       - "8000:8000"
     volumes:
       - /srv/clientlogs:/app/LOGS
+    env_file:
+      - client.env
+    depends_on:
+      mysql:
+        condition: service_healthy
 
   hoarder:
     build: Hoarder/
@@ -14,6 +31,8 @@ services:
       - "3000:3000"
     volumes:
       - /srv/hoarderlogs:/app/LOGS
+    env_file:
+      - hoarder.env
     depends_on:
       - clienttracker
 
@@ -23,5 +42,7 @@ services:
       - "5000:5000"
     volumes:
       - /srv/boxlogs:/app/LOGS
+    env_file:
+      - box.env
     depends_on:
       - clienttracker
