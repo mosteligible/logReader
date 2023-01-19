@@ -2,6 +2,7 @@ from threading import Thread
 from typing import Union
 
 import StatusCodes
+import uvicorn
 from Config import BOX_AUTH_TOKEN, CLIENTDB, HOARDER_AUTH_TOKEN
 from fastapi import FastAPI, Request
 from Log import APP_LOGGER
@@ -90,3 +91,8 @@ def delete_client(client: str):
     if CLIENTDB.DeleteClient(client) is False:
         return {"status": 500, "message": "Error deleting client"}
     return {"status": 200, "message": "successfully deleted client from Database"}
+
+
+if __name__ == "__main__":
+    # wait for database to be up
+    uvicorn.run(app=app, host="0.0.0.0", port=8000)
