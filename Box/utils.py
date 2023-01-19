@@ -1,5 +1,5 @@
 import time
-from typing import Dict
+from typing import Dict, List
 
 import requests
 from Config import APP_NAME, CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT
@@ -23,10 +23,11 @@ def collectResponse(url: str, payload: Dict) -> requests.models.Response:
     return response
 
 
-def retreiveAllClients():
+def retreiveAllClients() -> List:
     headers = {"application_instance": APP_NAME, "token": CLIENT_AUTH_TOKEN}
     retries = 0
     response = None
+    clientel = []
     APP_LOGGER.info(f"Sending GET request to: {CLIENT_ENDPOINT}")
     while retries < 3:
         try:
