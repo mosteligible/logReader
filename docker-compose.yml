@@ -1,7 +1,8 @@
 version: "3.3"
 services:
   mysql:
-    image: "mysql-db:1.0.0"
+    build:
+      context: ./MySQL_DB
     ports:
       - "6603:3306"
     env_file:
@@ -24,6 +25,11 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "localhost:8000/status"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
 
   hoarder:
     build: Hoarder/
@@ -34,7 +40,8 @@ services:
     env_file:
       - hoarder.env
     depends_on:
-      - clienttracker
+      clienttracker:
+        condition: service_healthy
 
   box:
     build: Box/
@@ -45,4 +52,5 @@ services:
     env_file:
       - box.env
     depends_on:
-      - clienttracker
+      clienttracker:
+        condition: service_healthy

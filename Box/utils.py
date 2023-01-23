@@ -28,10 +28,11 @@ def retreiveAllClients() -> List:
     retries = 0
     response = None
     clientel = []
-    APP_LOGGER.info(f"Sending GET request to: {CLIENT_ENDPOINT}")
+    url = f"{CLIENT_ENDPOINT}/clients/all"
+    APP_LOGGER.info(f"Sending GET request to: {url}")
     while retries < 3:
         try:
-            response = requests.get(url=CLIENT_ENDPOINT, headers=headers)
+            response = requests.get(url=url, headers=headers)
             clientel = response.json()["clientel"]
             break
         except Exception as e:
