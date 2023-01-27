@@ -37,7 +37,6 @@ def retreiveAllClients() -> List:
             break
         except Exception as e:
             APP_LOGGER.error(f"{e} on {retries+1} tries requesting url: {CLIENT_ENDPOINT}")
-            print(f"{e} on {retries+1} tries requesting url: {CLIENT_ENDPOINT}")
             time.sleep(10)
             retries += 1
     return clientel

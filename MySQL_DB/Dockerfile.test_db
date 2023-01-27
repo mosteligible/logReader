@@ -2,7 +2,7 @@ FROM mysql:8.0.31-debian
 
 WORKDIR /tmp
 
-COPY db_setup.sql /docker-entrypoint-initdb.d
+COPY testdb_setup.sql /docker-entrypoint-initdb.d
 
 RUN apt-get update && \
     apt-get upgrade -y

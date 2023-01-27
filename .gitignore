@@ -163,3 +163,8 @@ LOGS
 
 # Ansible files
 inventory.txt
+
+# Logs
+boxlogs
+clientlogs
+hoarderlogs

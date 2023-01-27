@@ -6,10 +6,13 @@ from Log import create_logger
 
 
 class Database:
-    def __init__(self, username: str, password: str, host: str, database: str):
+    def __init__(
+        self, username: str, password: str, host: str, database: str, port: int = 3306
+    ):
         self._username = username
         self._password = password
         self._host = host
+        self._port = port
         self._connection = None
         self.Reconnect(database=database)
         self.logger = create_logger(
@@ -48,6 +51,7 @@ class Database:
             password=self._password,
             host=self._host,
             database=database,
+            port=self._port,
         )
         self._cursor = self._connection.cursor(dictionary=True)
 

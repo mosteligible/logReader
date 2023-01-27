@@ -9,7 +9,7 @@ services:
       - db.env
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 120s
+      interval: 30s
       timeout: 30s
       retries: 5
 
@@ -19,7 +19,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /srv/clientlogs:/app/LOGS
+      - ./clientlogs:/app/LOGS
     env_file:
       - client.env
     depends_on:
@@ -27,7 +27,7 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "localhost:8000/status"]
-      interval: 10s
+      interval: 30s
       timeout: 30s
       retries: 5
 
@@ -36,7 +36,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - /srv/hoarderlogs:/app/LOGS
+      - ./hoarderlogs:/app/LOGS
     env_file:
       - hoarder.env
     depends_on:
@@ -48,7 +48,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - /srv/boxlogs:/app/LOGS
+      - ./boxlogs:/app/LOGS
     env_file:
       - box.env
     depends_on:
