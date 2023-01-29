@@ -1,7 +1,7 @@
 import traceback
 
 import mysql.connector as ctx
-from Constants import DB_LOG_LOCATION
+from Constants import DB_LOG_LOCATION, CLIENT_DB_NAME
 from Log import create_logger
 
 
@@ -14,6 +14,7 @@ class Database:
         self._host = host
         self._port = port
         self._connection = None
+        self._database_name = database
         self.Reconnect(database=database)
         self.logger = create_logger(
             log_location=DB_LOG_LOCATION, logger_name="DB", file_name="db.log"
@@ -42,7 +43,7 @@ class Database:
             return False
         return True
 
-    def Reconnect(self, database: str) -> None:
+    def Reconnect(self, database: str=CLIENT_DB_NAME) -> None:
         if self._connection:
             self._cursor.close()
             self._connection.close()

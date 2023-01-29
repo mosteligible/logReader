@@ -18,6 +18,7 @@ class ClientDatabase(Database):
     def RetreiveClient(
         self, clientId: str, tableName: str = CLIENT_DB_TABLE_NAME
     ) -> Tuple[str, str, str]:
+        self.Reconnect(self._database_name)
         selectQuery = f"select * from {tableName} where id='{clientId}'"
         try:
             self._cursor.execute(selectQuery)
@@ -36,6 +37,7 @@ class ClientDatabase(Database):
         return row[0]
 
     def DeleteClient(self, clientId: str, tableName: str = CLIENT_DB_TABLE_NAME) -> bool:
+        self.Reconnect(self._database_name)
         deleteQuery = f"delete from `{tableName}` where id='{clientId}'"
         try:
             self._cursor.execute(deleteQuery)
@@ -52,6 +54,7 @@ class ClientDatabase(Database):
     def RetreiveAllClients(
         self, tableName: str = CLIENT_DB_TABLE_NAME
     ) -> Union[List[str], bool]:
+        self.Reconnect(self._database_name)
         selectAllQuery = f"select * from {tableName}"
         try:
             self._cursor.execute(selectAllQuery)
@@ -62,6 +65,4 @@ class ClientDatabase(Database):
             )
             return False
         clientel = self._cursor.fetchall()
-        for index in range(len(clientel)):
-            clientel = tuple(clientel)
         return clientel
