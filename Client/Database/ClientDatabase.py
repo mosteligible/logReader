@@ -30,7 +30,6 @@ class ClientDatabase(Database):
             )
             return False
         row = self._cursor.fetchall()  # read first row of the fetch from DB
-        self._connection.commit()
         if len(row) != 1:
             return False
 
@@ -63,5 +62,4 @@ class ClientDatabase(Database):
             )
             return False
         clientel = self._cursor.fetchall()
-        self._connection.commit()
         return clientel

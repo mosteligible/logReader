@@ -7,7 +7,7 @@ from Log import create_logger
 
 class Database:
     def __init__(
-        self, username: str, password: str, host: str, database: str, port: int = 3306
+        self, username: str, password: str, host: str, database: str, port: int = 3306, autocommit: bool = True
     ):
         self._username = username
         self._password = password
@@ -15,6 +15,7 @@ class Database:
         self._port = port
         self._connection = None
         self._database_name = database
+        self._autocommit = autocommit
         self.Reconnect(database=database)
         self.logger = create_logger(
             log_location=DB_LOG_LOCATION, logger_name="DB", file_name="db.log"
@@ -34,7 +35,6 @@ class Database:
         self.logger.info(f"Query: {query}")
         try:
             self._cursor.execute(query)
-            self._connection.commit()
             self.logger.info(f"Insert query successful: {insertQuery}")
         except Exception as e:
             self.logger.error(
@@ -53,6 +53,7 @@ class Database:
             host=self._host,
             database=database,
             port=self._port,
+            autocommit=self._autocommit
         )
         self._cursor = self._connection.cursor(dictionary=True)
 
