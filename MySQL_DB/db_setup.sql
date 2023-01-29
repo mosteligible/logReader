@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS clientData (
     id varchar(50) NOT NULL,
     name varchar(50),
     plan varchar(20),
+    ip varchar(50),
     token varchar(100),
     PRIMARY KEY (ID)
 );
