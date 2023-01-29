@@ -30,7 +30,6 @@ class User:
         if response is None:
             self.logger.info(f"Client Validation for - ID: {id} Failed - token: {token}")
             return False
-        response = response.json()
         self.logger.info(f"response from Client Tracker: {response}")
         statusCode = int(response["status"])
         if statusCode > 399 or response["token"] != token:

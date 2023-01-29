@@ -6,7 +6,7 @@ from Config import APP_NAME, CLIENT_AUTH_TOKEN, CLIENT_ENDPOINT
 from Log import APP_LOGGER
 
 
-def collectResponse(url: str, payload: Dict) -> requests.models.Response:
+def collectResponse(url: str, payload: Dict) -> Dict:
     retries = 0
     response = None
     APP_LOGGER.info(f"Sending POST request to: {url} with payload: {payload}")
@@ -20,7 +20,8 @@ def collectResponse(url: str, payload: Dict) -> requests.models.Response:
             APP_LOGGER.error(f"{e} on {retries+1} tries requesting url:: {url}")
             time.sleep(10)
             retries += 1
-    return response
+    clientResponse = response.json()
+    return clientResponse
 
 
 def retreiveAllClients():
