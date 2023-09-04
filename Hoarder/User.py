@@ -12,7 +12,9 @@ class User:
         self.id = id
         self.token = token
         self.logger = create_logger(
-            log_location=Constants.USER_LOG_DIR, logger_name=id, file_name=f"{id}.log"
+            log_location=Constants.USER_LOG_DIR,
+            logger_name=id,
+            file_name=f"{id}.log",
         )
         if validate and not self.ValidateClient(id, token):
             raise UserValidationError("Invalid User")

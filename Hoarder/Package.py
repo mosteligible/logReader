@@ -23,7 +23,9 @@ class Sender:
         self.config = RabbitmqConfig()
         self.clientId = clientId
         self.logger = create_logger(
-            log_location=SENDER_LOG_DIR, logger_name=clientId, file_name=f"{clientId}.log"
+            log_location=SENDER_LOG_DIR,
+            logger_name=clientId,
+            file_name=f"{clientId}.log",
         )
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(

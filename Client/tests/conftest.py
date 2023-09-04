@@ -14,6 +14,7 @@ TEST_DB_NAME = os.getenv("TEST_DB_NAME", "")
 TEST_DB_HOST = os.getenv("TEST_DB_HOST", "127.0.0.1")
 TEST_DB_TABLE_NAME = os.getenv("TEST_DB_TABLE_NAME", "")
 TEST_DB_PORT = os.getenv("TEST_DB_PORT", 6603)
+TEST_ADD_TOKEN = os.getenv("TEST_ADD_TOKEN", "")
 
 TEST_DB = ClientDatabase(
     username=TEST_DB_USERNAME,

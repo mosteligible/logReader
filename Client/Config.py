@@ -19,6 +19,7 @@ CLIENTDB = ClientDatabase(
     password=Constants.CLIENT_DB_PASSWORD,
     host=Constants.CLIENT_DB_HOST,
     database=Constants.CLIENT_DB_NAME,
+    port=Constants.CLIENT_DB_PORT,
 )
 
 ################################

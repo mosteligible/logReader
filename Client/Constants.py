@@ -9,6 +9,7 @@ CLIENT_DB_USERNAME = os.getenv("CLIENT_DB_USERNAME", "")
 CLIENT_DB_PASSWORD = os.getenv("CLIENT_DB_PASSWORD", "")
 CLIENT_DB_NAME = os.getenv("CLIENT_DB_NAME", "")
 CLIENT_DB_HOST = os.getenv("CLIENT_DB_HOST", "")
+CLIENT_DB_PORT = os.getenv("CLIENT_DB_PORT", 3306)
 CLIENT_DB_TABLE_NAME = os.getenv("CLIENT_DB_TABLE_NAME", "")
 
 ################################

@@ -29,7 +29,12 @@ class Client:
         """
         Adds client to the DB
         """
-        payload = {"id": self.id, "name": self.name, "ip": self.ip, "plan": self.plan}
+        payload = {
+            "id": self.id,
+            "name": self.name,
+            "ip": self.ip,
+            "plan": self.plan,
+        }
         try:
             CLIENTDB.AddEntry(payload, tableName=CLIENT_DB_TABLE_NAME)
         except Exception as e:

@@ -1,5 +1,12 @@
 version: "3.3"
 services:
+  rabbit:
+    build:
+      context: ./rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
   mysql:
     build:
       context: ./MySQL_DB

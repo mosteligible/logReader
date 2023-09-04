@@ -10,13 +10,14 @@ from utils import retreiveAllClients
 
 
 def initMessaging() -> None:
-    time.sleep(5)
-    clientels = retreiveAllClients()
-    for client in clientels:
-        user = User(id=client["id"], token=client["token"], validate=True)
-        Clientel[client["id"]] = user
-        Senders[client["id"]] = Sender(clientId=client["id"])
-    return None
+    while True:
+        clientels = retreiveAllClients()
+        for client in clientels:
+            user = User(id=client["id"], token=client["token"], validate=True)
+            Clientel[client["id"]] = user
+            Senders[client["id"]] = Sender(clientId=client["id"])
+        # Every 5 minutes, check for update to client list
+        time.sleep(300)
 
 
 if __name__ == "__main__":

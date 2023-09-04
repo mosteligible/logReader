@@ -8,7 +8,12 @@ from .DatabaseFactory import Database
 
 class ClientDatabase(Database):
     def __init__(
-        self, username: str, password: str, host: str, database: str, port: int = 3306
+        self,
+        username: str,
+        password: str,
+        host: str,
+        database: str,
+        port: int = 3306,
     ):
         super().__init__(username, password, host, database, port)
 
